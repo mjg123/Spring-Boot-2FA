@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  height: 100%;
+  color: #121c2d;
+}
+
+body {
+  border-top: 5px solid #f22f46;
+  border-bottom: 5px solid #f22f46;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: #f22f46;
+}
+
+header {
+  background-color: #f4f4f6;
+}
+header h1 {
+  margin: 0;
+  font-weight: 100;
+  text-align: center;
+  font-size: 24px;
+  padding: 0.5em;
+}
+
+main {
+  flex-grow: 1;
+  width: 400px;
+  margin: 0 auto;
+  padding: 3em 1em;
+}
+
+main label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+main input {
+  font-size: 20px;
+  display: block;
+  width: 100%;
+  margin-bottom: 1em;
+  border-radius: 6px;
+}
+
+main img {
+  padding: 0.5em;
+}
+
+main .username {
+  color: #f22f46;
+  font-weight: bold;
+}
+
+main li {
+  padding-bottom: 0.5em;
+}
+
+main input[type=submit] {
+  font-size: 24px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1em;
+  background: #0d122b;
+  color: #fff;
+  border: none;
+  padding: 0.5em;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.info {
+  color: #888;
+}
+
+.error {
+  background: #f22f46;
+  color: #fff;
+  padding: 0.5em;
+  border-radius: 6px;
+}
+
+footer {
+  background-color: #f4f4f6;
+  text-align: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

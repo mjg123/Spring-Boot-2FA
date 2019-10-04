@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Log in please :)</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+
+<header>
+    <h1>Log In</h1>
+</header>
+
+<main>
+    <div th:if="${usermsg}">
+        <span class="info" th:text="${usermsg}"></span>
+    </div>
+    <div>
+        <form name='f' action="login" method='POST'>
+
+            <label for='username'>Username</label>
+            <input id='username' type='text' name='username' value=''>
+
+            <label for='username'>Password</label>
+            <input id='password' type='password' name='password'/>
+
+            <!-- TODO: (login) add a field here for the user to provide a code from their authenticator app -->
+
+            <input name="submit" type="submit" value="log in"/>
+
+        </form>
+
+        No account? <a href="/user/registration">Register here</a>
+
+    </div>
+</main>
+
+<footer>
+    Built with 💖 by <a href="https://twitter.com/MaximumGilliard">Matthew Gilliard</a>
+</footer>
+
+</body>
+</html>

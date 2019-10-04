@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thank you for registering</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+<body>
+
+<header>
+    <h1>Thank you</h1>
+</header>
+
+<main>
+    Hello <span class="username" th:text="${user.username}"></span>, thank you for creating your account!
+
+    <!-- TODO: (registration) show a QR code here -->
+
+    <ul>
+        <li><a href="/login">log in</a></li>
+    </ul>
+
+</main>
+
+<footer>
+    Built with 💖 by <a href="https://twitter.com/MaximumGilliard">Matthew Gilliard</a>
+</footer>
+
+</body>
+</html>

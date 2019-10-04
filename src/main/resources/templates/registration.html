@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+<body>
+
+<header>
+    <h1>Create your account</h1>
+</header>
+
+<main>
+    <form action="/user/registration" th:object="${user}" method="POST" enctype="utf8">
+
+        <label for="username">Username:</label>
+        <p class="error" th:each="error: ${#fields.errors('username')}" th:text="${error}"></p>
+        <input id="username" th:field="*{username}"/>
+
+        <label for="password">Password:</label>
+        <p class="error" th:each="error : ${#fields.errors('password')}" th:text="${error}"></p>
+        <input id="password" type="password" th:field="*{password}"/>
+
+        <input type="submit" value="Create Account"/>
+
+    </form>
+</main>
+
+<footer>
+    Built with 💖 by <a href="https://twitter.com/MaximumGilliard">Matthew Gilliard</a>
+</footer>
+
+</body>
+</html>

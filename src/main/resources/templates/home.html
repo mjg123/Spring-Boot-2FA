@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Welcome!</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+<header>
+    <h1>Welcome</h1>
+</header>
+
+<main>
+
+    <div th:if="${user}">
+        <p>
+            Hello <span class="username" th:text="${user.name}"></span>. There isn't a lot in this app, but how about:
+        </p>
+        <p>
+            <ul>
+                <li><a href="/user/home">your personal page</a></li>
+                <li><a href="/logout">log out</a></li>
+            </ul>
+        </p>
+    </div>
+
+    <div th:unless="${user}">
+        <p>
+            Hi 👋
+        </p>
+        <p>
+            You'll need to be logged in to use this site.
+        </p>
+        <ul>
+            <li><a href="/user/registration">register here</a></li>
+            <li><a href="/login">log in</a></li>
+        </ul>
+    </div>
+
+</main>
+
+<footer>
+    Built with 💖 by <a href="https://twitter.com/MaximumGilliard">Matthew Gilliard</a>
+</footer>
+
+</html>
