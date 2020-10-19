@@ -1,5 +1,7 @@
 package lol.gilliard.springboot2fa;
 
+import com.amdelamar.jotp.OTP;
+import com.amdelamar.jotp.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 
 @Controller
@@ -63,7 +67,7 @@ public class WebController {
     }
 
     @GetMapping("/user/registered")
-    public String showRegisteredPage(Model model){
+    public String showRegisteredPage(Model model) throws UnsupportedEncodingException {
 
         UserDto userDto = (UserDto) (model.asMap().get("user"));
 
@@ -72,8 +76,15 @@ public class WebController {
             return "redirect:/user/registration";
         }
 
-        // TODO: (registration) If the userDto has extra things on it that the user will need, we could add them to the model here
+        // TODO: (DONE registration) If the userDto has extra things on it that the user will need, we could add them to the model here
         // (see also /src/main/resources/templates/registered.html)
+        String otpUrl = OTP.getURL(userDto.getSecret(), 6, Type.TOTP, "spring-boot-2fa-demo", userDto.getUsername());
+
+        String twoFaQrUrl = String.format(
+            "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=%s",
+            URLEncoder.encode(otpUrl, "UTF-8")); // "UTF-8" shouldn't be unsupported but it's a checked exception :(
+
+        model.addAttribute("twoFaQrUrl", twoFaQrUrl);
 
         return "registered";
     }

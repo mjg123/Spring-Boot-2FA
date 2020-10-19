@@ -1,5 +1,6 @@
 package lol.gilliard.springboot2fa;
 
+import com.amdelamar.jotp.OTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +27,8 @@ public class UserService implements UserDetailsService {
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        // TODO: (registration) This is the place to set any extra details on the userDto before it's persisted to the database
+        // TODO: (DONE registration) This is the place to set any extra details on the userDto before it's persisted to the database
+        userDto.setSecret(OTP.randomBase32(20));
 
         userRepository.save(userDto);
     }

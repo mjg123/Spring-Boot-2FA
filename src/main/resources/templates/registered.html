@@ -17,7 +17,13 @@
 <main>
     Hello <span class="username" th:text="${user.username}"></span>, thank you for creating your account!
 
-    <!-- TODO: (registration) show a QR code here -->
+    <!-- TODO: (DONE registration) show a QR code here -->
+    <p>
+        Scan this QR code to add this site to your 2FA authentication app. You'll need it to log in.
+    </p>
+    <p>
+        <img th:src="${twoFaQrUrl}" />
+    </p>
 
     <ul>
         <li><a href="/login">log in</a></li>
