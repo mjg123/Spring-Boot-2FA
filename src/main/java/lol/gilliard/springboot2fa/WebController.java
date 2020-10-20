@@ -2,6 +2,9 @@ package lol.gilliard.springboot2fa;
 
 import com.amdelamar.jotp.OTP;
 import com.amdelamar.jotp.type.Type;
+import me.legrange.haveibeenpwned.HaveIBeenPwndApi;
+import me.legrange.haveibeenpwned.HaveIBeenPwndException;
+import me.legrange.haveibeenpwned.PwnedHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class WebController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HaveIBeenPwndApi hibpApi;
+
     @GetMapping("/")
     public ModelAndView showHomepage(Principal principal){
         if (principal == null){
@@ -43,6 +49,22 @@ public class WebController {
         return "registration";
     }
 
+
+
+    private int getPwnedHashCount(String password) throws HaveIBeenPwndException {
+        String pwHash = HaveIBeenPwndApi.makeHash(password);
+
+        String pwHashFirst5 = pwHash.substring(0, 5);
+        String pwHashTheRest = pwHash.substring(5);
+
+        return hibpApi.searchByRange(pwHashFirst5).stream()
+            .filter(pwnedHash -> pwnedHash.getHash().equals(pwHashTheRest))
+            .findFirst()
+            .map(PwnedHash::getCount)
+            .orElse(0);
+    }
+
+
     @PostMapping("/user/registration")
     public ModelAndView registerNewUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result, RedirectAttributes redirect){
 
@@ -51,9 +73,21 @@ public class WebController {
         }
 
         try {
+
+            int pwnedHashCount = getPwnedHashCount(userDto.getPassword());
+
+            if (pwnedHashCount > 0){
+                result.rejectValue("password", "password.overused", new Integer[]{pwnedHashCount}, "");
+                return new ModelAndView("registration");
+            }
+
             userService.createNewUser(userDto);
             redirect.addFlashAttribute("user", userDto);
             return new ModelAndView("redirect:/user/registered");
+
+        } catch (HaveIBeenPwndException ex){
+            logger.error("HaveIBeenPwndException", ex);
+            return new ModelAndView("registration");
 
         } catch (UserService.UserAlreadyExistsException ex){
 

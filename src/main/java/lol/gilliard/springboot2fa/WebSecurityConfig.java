@@ -2,6 +2,8 @@ package lol.gilliard.springboot2fa;
 
 import lol.gilliard.springboot2fa.auth.custom.CustomAuthenticationDetailsSource;
 import lol.gilliard.springboot2fa.auth.custom.CustomAuthenticationProvider;
+import me.legrange.haveibeenpwned.HaveIBeenPwndApi;
+import me.legrange.haveibeenpwned.HaveIBeenPwndBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -62,4 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationProvider(userDetailsService, passwordEncoder);
     }
 
+    @Bean
+    public HaveIBeenPwndApi haveIBeenPwndApi(){
+        return HaveIBeenPwndBuilder.create("mjg-java-spring-2fa-workshop")
+            .addPadding(true)
+            .build();
+    }
 }
