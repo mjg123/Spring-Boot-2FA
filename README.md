@@ -6,7 +6,7 @@ The goal of this workshop is to take an application which only has username/pass
 
 You will need:
 
-  - Java version 8 or newer (tested up to Java 15)
+  - Java version 8 or newer (tested up to Java 16)
   - a Java IDE (tested with IntelliJ)
   - git
 
